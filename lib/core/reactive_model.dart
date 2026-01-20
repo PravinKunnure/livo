@@ -3,7 +3,7 @@
 // --------------------------
 
 import 'package:flutter/material.dart';
-import 'package:reactive_orm/reactive_orm.dart';
+import 'package:livo/livo.dart';
 
 /// Reaction container for field or object-specific callbacks
 class _Reaction<T extends ReactiveModel> {

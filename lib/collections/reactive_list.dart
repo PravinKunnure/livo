@@ -1,4 +1,4 @@
-import 'package:reactive_orm/reactive_orm.dart';
+import 'package:livo/livo.dart';
 
 class ReactiveList<T> extends ReactiveModel {
   final List<T> _items;

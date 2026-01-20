@@ -3,7 +3,7 @@
 // --------------------------
 
 import 'package:flutter/material.dart';
-import 'package:reactive_orm/reactive_orm.dart';
+import 'package:livo/livo.dart';
 
 class ReactiveSelector<T extends ReactiveModel, V> extends StatefulWidget {
   final T model;
@@ -67,7 +67,7 @@ class _ReactiveSelectorState<T extends ReactiveModel, V>
 
 ///Version 1.0.1.111
 // import 'package:flutter/material.dart';
-// import 'package:reactive_orm/reactive_orm.dart';
+// import 'package:reactive_orm/livo.dart';
 //
 // class ReactiveSelector<T extends ReactiveModel, V> extends StatefulWidget {
 //   final T model;
@@ -131,7 +131,7 @@ class _ReactiveSelectorState<T extends ReactiveModel, V>
 
 ///Version 1.0.0.1
 // import 'package:flutter/material.dart';
-// import 'package:reactive_orm/reactive_orm.dart';
+// import 'package:reactive_orm/livo.dart';
 //
 // class ReactiveSelector<T extends ReactiveModel, V> extends StatefulWidget {
 //   final T model;

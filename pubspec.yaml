@@ -1,7 +1,9 @@
-name: reactive_orm
-description: "A reactive object-relationship state management layer for Flutter with fine-grained field reactivity."
-version: 1.2.0
-homepage: 'https://github.com/PravinKunnure/reactive_orm'
+name: livo  # <-- Change the package name
+description: "Live Objects — a reactive object-relationship state management layer for Flutter with field-wise and object-wise reactivity."
+version: 1.0.0  # <-- Reset version for new package
+homepage: 'https://github.com/PravinKunnure/livo'  # <-- Updated repo URL if repo renamed
+repo: 'https://github.com/PravinKunnure/livo.git'  # <-- Updated repo URL if repo renamed
+
 environment:
   sdk: ^3.10.4
   flutter: ">=1.17.0"

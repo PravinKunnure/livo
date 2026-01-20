@@ -1,4 +1,4 @@
-import 'package:reactive_orm/reactive_orm.dart';
+import 'package:livo/livo.dart';
 
 class ReactiveMap<K, V> extends ReactiveModel {
   final Map<K, V> _map;

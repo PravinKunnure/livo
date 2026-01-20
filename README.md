@@ -1,246 +1,139 @@
-# reactive_orm
+# LIVO
 
-[![Pub Version](https://img.shields.io/pub/v/reactive_orm)](https://pub.dev/packages/reactive_orm) | [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+[![Pub Version](https://img.shields.io/pub/v/livo)](https://pub.dev/packages/livo)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
-> ⚠️ **Note:** `reactive_orm` stands for a **Reactive Object–Relationship Model**.  
-> It is **not a database ORM**.  
-> It is a lightweight, field-level **state management solution** for Flutter UI, inspired by ORM-style modeling of objects and relationships — fully in-memory and UI-focused.
-
----
-
-## What’s New in v1.2.0
-
-- **watchField()**: field-level UI reactivity without `ReactiveBuilder`.
-- **watchComputed()**: rebuild UI based on derived / computed values.
-- **ReactiveMap<K, V>**: reactive key–value collections.
-- **Relationship helpers**: helpers for Many → One and Many ↔ Many model wiring.
-- **Debug inspection support**: introspect listeners, nested models, and rebuilds.
-- Internal folder re-organization for long-term extensibility.
-- Fully backward-compatible with v1.1.x.
-
+> **LIVO — Live Objects**  
+> A reactive object-relationship **state management system** for Flutter with
+> **field-level**, **object-level**, and **relationship-based reactivity**.
 
 ---
 
-## 🎬 Demo
+## 🧠 What is LIVO?
 
-![Reactive_ORM Demo](https://raw.githubusercontent.com/PravinKunnure/reactive_orm/main/example/assets/reactive_orm_demo_.gif)
+**LIVO (Live Objects)** is a **model-driven state management solution** for Flutter.
+
+Instead of managing state through providers, streams, or immutable snapshots,
+LIVO treats your **Dart objects as live state**.
+
+- Objects hold state
+- Fields are reactive
+- Relationships propagate changes automatically
+- UI stays in sync with minimal boilerplate
 
 ---
 
 ## ✨ Core Philosophy
 
-- Models are **plain Dart objects**.
-- State changes happen via **normal field mutation**.
-- UI reacts **automatically**, with optional field-specific reactivity.
-- No `ChangeNotifier`, providers, streams, or extra boilerplate.
-- Supports **object-wise**, **field-wise**, and **nested reactivity**.
-- ORM-inspired design:
-  - Objects represent application state
-  - Relationships define propagation (Many → One, Many ↔ Many)
-  - Reactivity keeps the UI in sync
+- Models are **plain Dart objects**
+- State changes happen via **normal field mutation**
+- UI reacts **automatically**
+- No `ChangeNotifier`, providers, streams, or boilerplate
+- Supports:
+  - **Object-level reactivity**
+  - **Field-level reactivity**
+  - **Nested & shared models**
+  - **One → Many and Many ↔ Many relationships**
+
+> Think of LIVO as **Live, connected objects driving your UI**
 
 ---
 
-
 ## ✨ Features
+
 - ✅ Reactive models with automatic UI updates
 - ✅ Object-wise reactivity (`watch`)
 - ✅ Field-wise reactivity (`watchField`)
-- ✅ Computed reactivity (`watchComputed`)
-- ✅ ReactiveList & ReactiveMap collections
+- ✅ Computed / derived reactivity (`watchComputed`)
+- ✅ ReactiveList & ReactiveMap
 - ✅ Nested & shared models
-- ✅ Many → One and Many ↔ Many relationships
+- ✅ One → Many and Many ↔ Many relationships
 - ✅ Debug inspection support
-- ✅ Minimal boilerplate, no codegen required
-- ✅ ORM-style object graph mental model
-
+- ✅ Minimal boilerplate
+- ✅ No code generation required
 
 ---
 
-## 🚀 Getting Started
-
-### Installation
+## 🚀 Installation:
 
 ```yaml
 dependencies:
-  reactive_orm: <latest_one>
+  livo: <latest_version>
 ```
 
-## 🧩 Basic Usage
-1️⃣ Create a Reactive Model:
+## 🧩 Basic Example:
+```
+import 'package:livo/livo.dart';
 
-    import 'package:reactive_orm/reactive_orm.dart';
-    
-    class Task extends ReactiveModel {
-      String _title;
-      bool _completed = false;
-      String _status = "Idle";
-    
-    Task({required String title}) : _title = title;
-    
-    String get title => _title;
-    set title(String value) {
-      if (_title != value) {
-        _title = value;
-        notifyListeners(#title); // ✅ Symbol, not String
-      }
-    }
-    
-    bool get completed => _completed;
-    set completed(bool value) {
-      if (_completed != value) {
-        _completed = value;
-        notifyListeners(#completed);
-      }
-    }
-    
-    String get status => _status;
-      set status(String value) {
-        if (_status != value) {
-          _status = value;
-          notifyListeners(#status);
-        }
-      }
-    }
+class Task extends ReactiveModel {
+  String _title;
+  bool _completed = false;
 
+  Task(this._title);
 
+  String get title => _title;
+  set title(String value) {
+    _title = value;
+    notifyListeners(#title);
+  }
 
-2️⃣ Object-wise Reactivity with watch()
+  bool get completed => _completed;
+  set completed(bool value) {
+    _completed = value;
+    notifyListeners(#completed);
+  }
+}
+```
 
-    final task = Task(title: "Object-wise");
-    
-    task.watch(
-        (t) => ListTile(
-            title: Text(t.title),
-            subtitle: Text(t.status),
-            trailing: Checkbox(
-            value: t.completed,
-            onChanged: (v) => t.completed = v!,
-        ),
-      ),
-    );
+## 🔗 Relationships
+- One → Many
+```
+class Dashboard extends ReactiveModel {
+  final List<Task> tasks;
 
-3️⃣ Field-wise Reactivity
+  Dashboard(this.tasks) {
+    for (final t in tasks) addNested(t);
+  }
+}
 
-    final task = Task(title: "Field-wise");
+```
 
-    ReactiveBuilder<Task>(
-    model: task,
-      fields: [#completed, #status], // ✅ Symbol-based
-        builder: (t) => ListTile(
-        title: Text(t.title),
-          subtitle: Text(t.status),
-          trailing: Checkbox(
-          value: t.completed,
-          onChanged: (v) => t.completed = v!,
-        ),
-      ),
-    );
+- Many ↔ Many
+```
+class Group extends ReactiveModel {
+  final String name;
+  final List<Task> tasks;
 
-4️⃣ ReactiveList Example
+  Group(this.name, this.tasks) {
+    for (final t in tasks) addNested(t);
+  }
+}
 
-    final ReactiveList<String> fruits = ReactiveList(["Apple", "Banana"]); 
+```
 
-    fruits.watch(
-    (list) => Column(
-    children: list.value.map((e) => Text(e)).toList(),
-    ),
-    );
-
-    fruits.add("Orange"); // automatically rebuilds UI
-
-5️⃣ ReactiveMap Example
-
-    final ReactiveMap<String, int> scores = ReactiveMap({"A": 1, "B": 2});
-    
-      scores.watch(
-      (map) => Column(
-        children: map.value.entries
-          .map((e) => Text("${e.key} → ${e.value}"))
-          .toList(),
-        ),
-      );
-
-    scores.put("C", 3); // automatically rebuilds UI
+## 🧭 Why LIVO?
+| Traditional State | LIVO                   |
+| ----------------- | ---------------------- |
+| External stores   | State lives in objects |
+| Boilerplate       | Minimal                |
+| Manual wiring     | Automatic propagation  |
+| Flat state        | Connected object graph |
 
 
-## 🔗 Relationship Patterns
-- Many → One (Aggregation)
-    
-      class Dashboard extends ReactiveModel {
-          final List<Task> sources;
-          Dashboard(this.sources) {
-          for (final task in sources) addNested(task); }
-          }
+## 🔄 Migration Notice:
+### This package replaces `reactive_orm`.
+### `reactive_orm` has been deprecated and rebranded as LIVO to remove ORM/database confusion and better reflect its purpose as a state management system.
 
-        final dashboard = Dashboard([task1, task2]);
-        
-        ReactiveBuilder<Dashboard>(
-        model: dashboard,
-        builder: (_) => Text("Dashboard updated"),
-        );
+### Migration is simple:
+```
+- import 'package:reactive_orm/reactive_orm.dart';
++ import 'package:livo/livo.dart';
 
-- Many ↔ Many (Shared Models)
+```
 
-
-    class Group extends ReactiveModel {
-    final String name;
-    final List<Task> tasks;
-    
-    Group({required this.name, required this.tasks}) {
-      for (final task in tasks) addNested(task);
-      }
-    }
-
-
-
-## 🧠 How It Works
-- Models extend ReactiveModel.
-- Field setters call notifyListeners(#field) when the value changes.
-- ReactiveBuilder widgets listen to:
-- Whole model (object-wise)
-- Specific fields (field-wise)
-- Nested models propagate changes upward automatically
-- Widgets rebuild safely, respecting Flutter lifecycle
-
-
-## Roadmap
-
-### v1.3.x (Experimental)
-- Annotation-based metadata
-- Optional code generation (models & relationships)
-- Compile-time safety for fields & relations
-
-### v1.4.x
-- Advanced DevTools (graph visualization, rebuild tracing)
-- Performance profiling helpers
-
-
-## 📌 Summary
-
-`reactive_orm` is ideal for:
-
-- Clean Dart models with fine-grained reactivity
-- A Reactive Object–Relationship Model for UI state
-- Object-wise and field-wise rebuild control
-- Nested and shared models without manual wiring
-- Minimal boilerplate with a clear mental model
-- A lightweight yet scalable state management solution for Flutter apps
-
-
-## 🆚 Comparison of State Management Approaches
-
-| Feature                    | setState           | Provider / ChangeNotifier | ValueNotifier          | BLoC                       | Riverpod                | MobX                 | reactive_orm                   |
-|----------------------------|--------------------|---------------------------|------------------------|----------------------------|-------------------------|----------------------|--------------------------------|
-| Plain Dart models          | ⚠️ Widget-bound    | ❌ Extends notifier        | ⚠️ Wrapped value       | ❌ State classes            | ❌ Immutable snapshots   | ⚠️ Annotated         | ✅ Plain Dart objects           |
-| Direct field mutation      | ⚠️ Inside widget   | ❌                         | ⚠️ `value = x`         | ❌                          | ❌                       | ⚠️ Observable        | ✅ `model.field = value`        |
-| Automatic UI updates       | ⚠️ Manual          | ✅                         | ✅                      | ✅                          | ✅                       | ✅                    | ✅                              |
-| Field-wise reactivity      | ❌                  | ❌                         | ❌                      | ❌                          | ❌                       | ✅                    | ✅ Field-wise + object-wise     |
-| Multiple widgets listening | ❌                  | Manual wiring             | Manual                 | Stream subscriptions       | Provider wiring         | Automatic            | Automatic                      |
-| Nested models              | ❌                  | ⚠️ Manual                 | Manual                 | ❌                          | ⚠️ Manual               | ⚠️ Manual            | ✅ Built-in                     |
-| Relationships              | ❌                  | ❌                         | ❌                      | ❌                          | ❌                       | ❌                    | ✅ Many → One / Many ↔ Many     |
-| Boilerplate                | Very Low           | Medium                    | Medium                 | High                       | Medium                  | Medium               | Minimal / ORM-style            |
-| Immutability required      | ❌                  | ❌                         | ❌                      | ✅                          | ✅                       | ⚠️ Optional          | ❌                              |
-| Mental model               | Widget-local state | Observable objects        | Single reactive value  | Event → State streams      | Immutable containers    | Observable variables | Live object graph (ORM-style)  |
-| Ideal for                  | Tiny local state   | Small–medium apps         | Simple reactive values | Async-heavy / event-driven | Predictable state       | Explicit reactivity  | Complex reactive domain models |
-
+## 📌 Summary:
+###  LIVO is ideal for:
+- Model-centric Flutter apps
+- Fine-grained UI reactivity
+- Complex domain models with relationships
+- Clean architecture with minimal overhead

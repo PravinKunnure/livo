@@ -3,7 +3,7 @@
 // --------------------------
 
 import 'package:flutter/widgets.dart';
-import 'package:reactive_orm/reactive_orm.dart';
+import 'package:livo/livo.dart';
 
 /// =====================================================
 /// Extension on ReactiveModel for ergonomic watch

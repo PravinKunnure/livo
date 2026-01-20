@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reactive_orm/reactive_orm.dart';
+import 'package:livo/livo.dart';
 
 /// =====================================================
 /// TASK MODEL
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Reactive ORM – v1.2.0 Demo")),
+      appBar: AppBar(title: const Text("Livo Demo")),
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [
