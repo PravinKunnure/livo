@@ -54,12 +54,6 @@ LIVO treats your **Dart objects as live state**.
 
 ---
 
-## 🚀 Installation:
-
-```yaml
-dependencies:
-  livo: <latest_version>
-```
 
 
 ## 🧠 How LIVO Thinks About State (vs Others)
@@ -96,11 +90,21 @@ dependencies:
 
 
 🎯 Key Differentiator of LIVO
-  **LIVO treats your domain model as the state system itself.**
-  There is no separate state layer — the model is the state.
 
-- **Where others wrap state, LIVO animates the object graph.**
+``
+- LIVO treats your domain model as the state system itself.
+- There is no separate state layer — the model is the state.
+``
+- ***Where others wrap state, LIVO animates the object graph.***
 
+---
+
+## 🚀 Installation:
+
+```yaml
+dependencies:
+  livo: <latest_version>
+```
 
 ## 🧩 Basic Example:
 ```
