@@ -1,6 +1,6 @@
 name: livo  # <-- Change the package name
 description: "Live Objects — a reactive object-relationship state management layer for Flutter with field-wise and object-wise reactivity."
-version: 1.0.0  # <-- Reset version for new package
+version: 1.0.1  # <-- Reset version for new package
 homepage: 'https://github.com/PravinKunnure/livo'  # <-- Updated repo URL if repo renamed
 repo: 'https://github.com/PravinKunnure/livo.git'  # <-- Updated repo URL if repo renamed
 

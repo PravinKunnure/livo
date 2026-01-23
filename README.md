@@ -61,6 +61,47 @@ dependencies:
   livo: <latest_version>
 ```
 
+
+## 🧠 How LIVO Thinks About State (vs Others)
+
+| Dimension                 | LIVO                                      | Provider                     | Riverpod                                   | BLoC                                 |
+| ------------------------- |-------------------------------------------|------------------------------|--------------------------------------------|--------------------------------------|
+| Core Philosophy       | State is live domain objects              | State is exposed objects     | State is immutable values from providers   | State is a stream of events → states |
+| Mental Model          | “Objects change → UI reacts”              | “Object notifies listeners”  | “State is derived & recomputed”            | “Events produce new states”          |
+| Where State Lives     | Inside models themselves                  | In ChangeNotifiers / objects | Inside providers                           | Inside blocs                         |
+| Mutation Style        | Direct mutation of fields                 | Direct mutation              | Usually immutable                          | Immutable states                     |
+| How UI Updates        | Field/object watchers react automatically | `notifyListeners()`          | Provider invalidation & recompute          | Stream emits new state               |
+| Granularity           | Field-level & object-level                | Object-level                 | Provider-level (can be fine-grained)       | Whole-state                          |
+| Relationship Handling | First-class (nested, graph-based)         | Manual wiring                | Derived providers                          | Manual orchestration                 |
+| Boilerplate Level     | Low                                       | Low–Medium                   | Medium                                     | High                                 |
+| Explicitness          | Implicit reactivity                       | Semi-explicit                | Explicit dependencies                      | Very explicit                        |
+| Debugging Style       | Track who changed what                    | Track notifier calls         | Track provider invalidation                | Event/state logs                     |
+| Async Handling        | Model-centric async                       | Manual                       | First-class (`FutureProvider`)             | First-class                          |
+| Side Effects          | Model-driven                              | Manual                       | Controlled                                 | Event-driven                         |
+| Testability           | High (plain Dart models)                  | High                         | Very high                                  | Very high                            |
+| Learning Curve        | Medium (new paradigm)                     | Low                          | Medium–High                                | High                                 |
+| Best Fit              | Domain-heavy, relational apps             | Simple reactive UI           | Data-driven apps                           | Complex workflows                    |
+| Worst Fit             | Global config / DI                        | Large reactive graphs        | Heavy mutation workflows                   | Simple CRUD apps                     |
+
+
+
+## 🧩 One-Line Thinking Differences
+| Framework    | How It Thinks                  |
+| ------------ |--------------------------------|
+| **LIVO**     | “My objects are alive.”        |
+| **Provider** | “Notify when something changes.” |
+| **Riverpod** | “State is a computed value.”   |
+| **BLoC**     | “Events drive state transitions.” |
+
+
+
+🎯 Key Differentiator of LIVO
+  **LIVO treats your domain model as the state system itself.**
+  There is no separate state layer — the model is the state.
+
+- **Where others wrap state, LIVO animates the object graph.**
+
+
 ## 🧩 Basic Example:
 ```
 import 'package:livo/livo.dart';

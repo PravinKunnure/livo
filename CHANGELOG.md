@@ -6,6 +6,9 @@ This project follows semantic versioning.
 
 ---
 
+## 1.0.1 — 
+- Document Changes 
+
 ## 1.0.0 — LIVO Initial Release 🎉
 
 ### 🚀 Introduction
