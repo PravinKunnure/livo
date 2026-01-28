@@ -9,6 +9,18 @@
 
 ---
 
+
+## 🔄 Migration Notice:
+### This package replaces `reactive_orm`.
+### `reactive_orm` has been deprecated and rebranded as LIVO to remove ORM/database confusion and better reflect its purpose as a state management system.
+
+### Migration is simple:
+- `import 'package:reactive_orm/reactive_orm.dart';`
++ `import 'package:livo/livo.dart';`
+
+---
+
+
 ## 🧠 What is LIVO?
 
 **LIVO (Live Objects)** is a **model-driven state management solution** for Flutter.
@@ -55,7 +67,6 @@ LIVO treats your **Dart objects as live state**.
 ---
 
 
-
 ## 🧠 How LIVO Thinks About State (vs Others)
 
 | Dimension                 | LIVO                                      | Provider                     | Riverpod                                   | BLoC                                 |
@@ -91,11 +102,10 @@ LIVO treats your **Dart objects as live state**.
 
 🎯 Key Differentiator of LIVO
 
-``
 - LIVO treats your domain model as the state system itself.
 - There is no separate state layer — the model is the state.
-``
-- ***Where others wrap state, LIVO animates the object graph.***
+
+> Where others wrap state, LIVO animates the object graph.
 
 ---
 
@@ -163,16 +173,6 @@ class Group extends ReactiveModel {
 | Boilerplate       | Minimal                |
 | Manual wiring     | Automatic propagation  |
 | Flat state        | Connected object graph |
-
-
-## 🔄 Migration Notice:
-### This package replaces `reactive_orm`.
-### `reactive_orm` has been deprecated and rebranded as LIVO to remove ORM/database confusion and better reflect its purpose as a state management system.
-
-### Migration is simple:
-```
-- import 'package:reactive_orm/reactive_orm.dart';
-+ import 'package:livo/livo.dart';
 
 ```
 

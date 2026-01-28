@@ -1,8 +1,8 @@
-name: livo  # <-- Change the package name
+name: livo
 description: "Live Objects — a reactive object-relationship state management layer for Flutter with field-wise and object-wise reactivity."
-version: 1.0.2  # <-- Reset version for new package
-homepage: 'https://github.com/PravinKunnure/livo'  # <-- Updated repo URL if repo renamed
-repo: 'https://github.com/PravinKunnure/livo.git'  # <-- Updated repo URL if repo renamed
+version: 1.0.3
+homepage: 'https://github.com/PravinKunnure/livo'
+repo: 'https://github.com/PravinKunnure/livo.git'
 
 environment:
   sdk: ^3.10.4
@@ -22,6 +22,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
 
   # To add assets to your package, add an assets section, like this:
   # assets:
