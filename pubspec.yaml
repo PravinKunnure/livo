@@ -1,6 +1,6 @@
 name: livo
 description: "Live Objects — a reactive object-relationship state management layer for Flutter with field-wise and object-wise reactivity."
-version: 1.0.3
+version: 1.0.4
 homepage: 'https://github.com/PravinKunnure/livo'
 repo: 'https://github.com/PravinKunnure/livo.git'
 
