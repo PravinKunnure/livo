@@ -6,6 +6,11 @@ This project follows semantic versioning.
 
 ---
 
+## 1.0.5 —
+- Document Changes
+- Minor bug fixes
+
+
 ## 1.0.4 — 
 - Document Changes
 - Minor bug fixes
